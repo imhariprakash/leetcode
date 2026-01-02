@@ -55,3 +55,48 @@ class Solution
 
 - `2 ms`  
 - Beats `54.01%`
+
+## Optimal Solution 1 (1 ms) — Using HashSet
+
+**Approach:**
+- Use a `HashSet` to keep track of already visited elements.
+- Traverse the array:
+  - If the current element is already present in the set, it is the repeated element — return it.
+  - Otherwise, add the element to the set.
+- Since exactly one element is repeated `N` times, the duplicate is guaranteed to be found.
+
+**Code:**
+```
+class Solution 
+{
+    public int repeatedNTimes(int[] nums) 
+    {
+        Set<Integer> visitedElements = new HashSet<>();
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(visitedElements.contains(nums[i]))
+            {
+                return nums[i];
+            }
+            visitedElements.add(nums[i]);
+        }
+        return -1;
+    }
+}
+
+//Using standard for loop: (won't make a difference)
+class Solution 
+{
+    public int repeatedNTimes(int[] nums) 
+    {
+        Set<Integer> visitedElements = new HashSet<>();
+        for(int num : nums)
+        {
+            if(!visitedElements.add(num))
+            {
+                return num;
+            }
+        }
+        return -1;
+    }
+}
